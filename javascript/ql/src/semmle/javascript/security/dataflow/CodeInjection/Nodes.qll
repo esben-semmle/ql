@@ -1,12 +1,24 @@
 /**
- * Provides a default implementation of the interface for reasoning
- * about code injection.
+ * Provides nodes for reasoning about code injection.
  */
 
 import javascript
 
 module CodeInjection {
-  import Interface::CodeInjection
+  /**
+   * A data flow source for code injection vulnerabilities.
+   */
+  abstract class Source extends DataFlow::Node { }
+
+  /**
+   * A data flow sink for code injection vulnerabilities.
+   */
+  abstract class Sink extends DataFlow::Node { }
+
+  /**
+   * A sanitizer for code injection vulnerabilities.
+   */
+  abstract class Sanitizer extends DataFlow::Node { }
 
   /** A source of remote user input, considered as a flow source for code injection. */
   class RemoteFlowSourceAsSource extends Source {

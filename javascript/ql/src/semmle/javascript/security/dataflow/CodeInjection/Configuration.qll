@@ -5,7 +5,6 @@
 import javascript
 
 module CodeInjection {
-  import Interface::CodeInjection
 
   /**
    * A taint-tracking configuration for reasoning about code injection vulnerabilities.
@@ -13,14 +12,9 @@ module CodeInjection {
   class Configuration extends TaintTracking::Configuration {
     Configuration() { this = "CodeInjection" }
 
-    override predicate isSource(DataFlow::Node source) { source instanceof Source }
-
-    override predicate isSink(DataFlow::Node sink) { sink instanceof Sink }
-
     override predicate isSanitizer(DataFlow::Node node) {
       super.isSanitizer(node) or
-      isSafeLocationProperty(node.asExpr()) or
-      node instanceof Sanitizer
+      isSafeLocationProperty(node.asExpr())
     }
 
     override predicate isAdditionalTaintStep(DataFlow::Node src, DataFlow::Node trg) {
